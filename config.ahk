@@ -76,7 +76,7 @@ DialDialogKey        := "+`" ; Call GUI with a list of almost all numbers
 ;CallMerryweatherKey  := "F24" ; Call Merryweather
 ;CallAssistantKey     := "^F6" ; Call Assistant
 
-;;CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpdates option
+;CheckForUpdatesKey   := "F24" ; Checks on startup by default, see DoCheckForUpdates option
 
 
 ; Options (should be fine out of the box)
@@ -193,32 +193,32 @@ SetWorkingDir A_ScriptDir
 #IfWinActive ahk_class grcWindow
 
 ; Hotkey/Function mapping
-Hotkey, %CheckForUpdatesKey%, CheckForUpdates
+;Hotkey, %CheckForUpdatesKey%, CheckForUpdates
 Hotkey, %SnackMenuKey%, SnackMenu
-Hotkey, %AutoHealthKey%, AutoHealth
+;Hotkey, %AutoHealthKey%, AutoHealth
 Hotkey, %ArmorMenuKey%, ArmorMenu
-Hotkey, %AutoArmorKey%, AutoArmor
-Hotkey, %TogglePassiveKey%, TogglePassive
+;Hotkey, %AutoArmorKey%, AutoArmor
+;Hotkey, %TogglePassiveKey%, TogglePassive
 Hotkey, %RetrieveCarKey%, RetrieveCar
-Hotkey, %EquipScarfKey%, EquipScarf
-Hotkey, %CycleOutfitKey%, CycleOutfit
-Hotkey, %ToggleVIPKey%, ToggleVIP
-Hotkey, %ToggleCPHKey%, ToggleCPH
-Hotkey, %ToggleAFKKey%, ToggleAFK
-Hotkey, %ToggleClickerKey%, ToggleClicker
-Hotkey, %ToggleRadarKey%, ToggleRadar
-Hotkey, %KillGameKey%, KillGame
-Hotkey, %ForceDisconnectKey%, ForceDisconnect
-Hotkey, %RandomHeistKey%, RandomHeist
-Hotkey, %ChatSnippetsKey%, ChatSnippets
+;Hotkey, %EquipScarfKey%, EquipScarf
+;Hotkey, %CycleOutfitKey%, CycleOutfit
+;Hotkey, %ToggleVIPKey%, ToggleVIP
+;Hotkey, %ToggleCPHKey%, ToggleCPH
+;Hotkey, %ToggleAFKKey%, ToggleAFK
+;Hotkey, %ToggleClickerKey%, ToggleClicker
+;Hotkey, %ToggleRadarKey%, ToggleRadar
+;Hotkey, %KillGameKey%, KillGame
+;Hotkey, %ForceDisconnectKey%, ForceDisconnect
+;Hotkey, %RandomHeistKey%, RandomHeist
+;Hotkey, %ChatSnippetsKey%, ChatSnippets
 Hotkey, %CEOBuzzardKey%, CEOBuzzard
 Hotkey, %DialDialogKey%, DialDialog
-Hotkey, %CallMechanicKey%, CallMechanic
-Hotkey, %CallPegasusKey%, CallPegasus
-Hotkey, %CallMerryweatherKey%, CallMerryweather
-Hotkey, %CallInsuranceKey%, CallInsurance
-Hotkey, %CallLesterKey%, CallLester
-Hotkey, %CallAssistantKey%, CallAssistant
+;Hotkey, %CallMechanicKey%, CallMechanic
+;Hotkey, %CallPegasusKey%, CallPegasus
+;Hotkey, %CallMerryweatherKey%, CallMerryweather
+;Hotkey, %CallInsuranceKey%, CallInsurance
+;Hotkey, %CallLesterKey%, CallLester
+;Hotkey, %CallAssistantKey%, CallAssistant
 
 ; Sets delay(ms) between keystrokes issued. Arguments are delay between keystrokes and press duration, respectively.
 ; They might be able to go lower but these values are pretty fast and work reliably.
