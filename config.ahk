@@ -47,9 +47,13 @@
 ;          or any other valid key or it will break!
 SnackMenuKey         := "Del" ; Open Snack menu (+ = shift, rtfm).
 ArmorMenuKey         := "PgUp" ; Open Armor menu.
+DialDialogKey        := "PgDn" ; Call GUI with a list of almost all numbers
+
 RetrieveCarKey       := "+Del" ; Request Personal Vehicle.
+SendBackCarKey       := "+PgUp" ; Send back Personal Vehicle
 CEOBuzzardKey        := "+PgDn" ; Spawn free CEO buzzard
-DialDialogKey        := "+`" ; Call GUI with a list of almost all numbers
+
+BuyAllAmmoKey        := "\" ; Buy All Ammo
 
 ;CallMechanicKey      := "PgDn" ; Call Mechanic
 ;CallInsuranceKey     := "F6" ; Call Insurance
@@ -62,10 +66,10 @@ DialDialogKey        := "+`" ; Call GUI with a list of almost all numbers
 ;EquipScarfKey        := "NumpadDot" ; Equip first scarf (heist outfit glitch, see readme/misc).
 ;ToggleRadarKey       := "+F2" ; Toggle between extended and standar radar.
 ;CycleOutfitKey       := "NumpadAdd" ; Equip next/cycle through saved outfits.
-;ToggleVIPKey         := "NumpadSub" ; Toggle VIP mode (required when VIP/CEO/MC).
-;ToggleCPHKey         := "^NumpadSub" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP
+ToggleVIPKey          := "~" ; Toggle VIP mode (required when VIP/CEO/MC).
+;ToggleCPHKey         := "^PgDn" ; Toggle Cayo Perico Heist Final mode (extra menu entry), also see DoToggleCPHWithVIP
 ;ToggleAFKKey         := "+NumpadSub" ; Toggle AFK mode
-;ToggleClickerKey     := "+XButton2" ; Toggle Clicker (XButton2 = Mouse5)
+ToggleClickerKey      := "|" ; Toggle Clicker (XButton2 = Mouse5)
 ;KillGameKey          := "+F12" ; Kill game process, requires pskill.exe
 ;ForceDisconnectKey   := "F12" ; Force disconnect by suspending process for 10s, requires pssuspend.exe
 ;ChatSnippetsKey      := "F11" ; Gives you a few text snippets to put in chat (chat must be already open)
@@ -105,7 +109,7 @@ ArrayChatSnippets.push("You want some cool AHK macros? github.com/2called-chaos/
 ; Delays (you normally don't want to change these, you can try to play with these values if you have a slow/fast PC)
 IntFocusDelay        := 100  ; delay (in ms) after focussing game when AHK-GUI took focus.
 IntMenuDelay         := 120  ; delay (in ms) after opening interaction menu.
-IntPhoneMenuDelay    := 1850 ; delay (in ms) after opening phone menu.
+IntPhoneMenuDelay    := 1000 ; delay (in ms) after opening phone menu.
 IntPhoneMenuDelay2   := 250  ; delay (in ms) after selecting phone menu entries.
 IntPhoneScrollDelay  := 75   ; delay (in ms) between scrolls in the phone menu.
 IntKeySendDelay      := 25   ; delay (in ms) delay between send key commands.
@@ -200,12 +204,14 @@ Hotkey, %ArmorMenuKey%, ArmorMenu
 ;Hotkey, %AutoArmorKey%, AutoArmor
 ;Hotkey, %TogglePassiveKey%, TogglePassive
 Hotkey, %RetrieveCarKey%, RetrieveCar
+Hotkey, %SendBackCarKey%, SendBackCar
+Hotkey, %BuyAllAmmoKey%, BuyAllAmmo
 ;Hotkey, %EquipScarfKey%, EquipScarf
 ;Hotkey, %CycleOutfitKey%, CycleOutfit
-;Hotkey, %ToggleVIPKey%, ToggleVIP
+Hotkey, %ToggleVIPKey%, ToggleVIP
 ;Hotkey, %ToggleCPHKey%, ToggleCPH
 ;Hotkey, %ToggleAFKKey%, ToggleAFK
-;Hotkey, %ToggleClickerKey%, ToggleClicker
+Hotkey, %ToggleClickerKey%, ToggleClicker
 ;Hotkey, %ToggleRadarKey%, ToggleRadar
 ;Hotkey, %KillGameKey%, KillGame
 ;Hotkey, %ForceDisconnectKey%, ForceDisconnect
@@ -262,6 +268,12 @@ openInteractionMenu(isVIPActive, isCPHActive) {
     Send {Down}
     Send {Down}
   } else if (isVIPActive = 1) {
+    Send {Down}
+  }
+}
+
+extraDownOnVIP(isVIPActive){
+  if (isVIPActive = 1) {
     Send {Down}
   }
 }
@@ -671,7 +683,74 @@ TogglePassive:
 ; Retrieve your currently active vehicle
 RetrieveCar:
   openInteractionMenu(IsVIPActivated, IsCPHActivated)
-  Send {Down}{Down}{Down}{Down}{Enter}{Enter}{%IGB_Interaction%}
+  ~(IsVIPActivated)
+  Send {Down}{Down}{Down}{Enter}{Enter}{%IGB_Interaction%}
+  return
+  
+; Send Back your currently active vehicle
+SendBackCar:
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  Send {Down}{Down}{Down}{Down}{Enter}
+  Send {Down}{Down}{Down}{Down}{Enter}{%IGB_Interaction%}
+  return
+
+  
+; Send Back your currently active vehicle
+BuyAllAmmo:
+  openInteractionMenu(IsVIPActivated, IsCPHActivated)
+  Send {Down}{Down} {Enter}
+  Sleep, 100
+  Send {Down}{Down}{Down}{Down}{Down} {Enter}
+  Sleep, 100
+  ;
+  Send {Up} {Enter} ;Pistol
+  Sleep, 1000
+  Send {Down}{Right} ;Next
+  Send {Up} {Enter} ;Next (Rifle)
+  Sleep, 1000
+  Send {Down}{Right} ;Next
+  ;
+  Send {Up} {Enter} ;Next (Mg)
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  Send {Down}{Right} ;Next
+  ;
+  Send {Up} {Enter} ;Next (Shot Gun)
+  Sleep, 1000
+  Send {Down}{Right} ;Next
+  ;
+  Send {Up} {Enter} ;Next (Sniper)
+  Sleep, 1000
+  Send {Down}{Right} ;Next
+  ;
+  Send {Up} {Enter} ;Next (Throwable)
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  Send {Down}{Right} ;Next
+  ;
+  Send {Up} {Enter} ;Next (Heavy Gun)
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  Send {Up}{Up}{Right} {Down}{Down} {Enter} ;Next sub menu and buy
+  Sleep, 1000
+  ;
+
+  Send {%IGB_Interaction%} ;Close
   return
 
 ; Chooses on-call random heist from phone options
